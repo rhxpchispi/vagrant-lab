@@ -1,0 +1,10 @@
+---
+- name: Install Nginx
+  hosts: web
+  become: yes
+
+  tasks:
+    - name: Write hostname using jinja2
+      template:
+        src: templates/test.j2
+        dest: /tmp/hostname
