@@ -1,0 +1,24 @@
+---
+- name: Install Nginx
+  hosts: web
+  become: yes
+
+  tasks:
+    - name: Install Nginx package on Debian
+      apt:
+        name: "nginx"
+        state: "present"
+        update_cache: true
+      when: ansible_facts['os_family'] == "Debian"
+
+    - name: Install Nginx package on RedHat
+      yum:
+        name: "nginx"
+        state: "present"
+        update_cache: true
+      when: ansible_facts['os_family'] == "RedHat"
+
+    - name: Start Nginx service
+      service:
+        name: nginx
+        state: started
